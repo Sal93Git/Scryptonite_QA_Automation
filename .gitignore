@@ -1,4 +1,5 @@
 # Byte-compiled / optimized / DLL files
+*__pycache__/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -153,11 +154,11 @@ dmypy.json
 cython_debug/
 
 # Exclude the reports folder
-reports/
+*reports/
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
+.idea/
