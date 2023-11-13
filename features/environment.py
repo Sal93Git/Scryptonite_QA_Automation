@@ -17,6 +17,7 @@ from features.Actions.BasePage import BasePage
 from features.Actions.TestPage import LoginPage
 
 
+# List of page object classes to initialize
 # Add other page classes to the list
 page_classes = [LoginPage, BasePage]
 
@@ -47,23 +48,15 @@ async def before_all(context):
         page_name = page_class.__name__
         context.page_objects[page_name] = page_class()
 
-# @fixture
-# async def browser_chrome(context):
-#     p = await async_playwright().start()
-#     browser = await p.chromium.launch(headless=False, slow_mo=1000, channel="chrome")
-#     context.page = await browser.new_page()
-#     context.login_page = LoginPage(context.page)
-#     return context.page
 
 @fixture
 async def browser_chrome_page(context):
+    # context.session = await context.browser.new_context()
+    # await context.session.tracing.start(screenshots=True, snapshots=True)
+    # context.page = await context.session.browser.new_page()
     context.page = await context.browser.new_page()
-    # context.login_page = LoginPage(context.page)
-    # List of page object classes to initialize
-
+    
     # # Initialize page object instances using a loop
-    # for page_class in page_classes:
-    #     setattr(context, page_class.__name__.lower(), page_class(context.page))
     for page_name, page_instance in context.page_objects.items():
         # Call a common function on each page object
         page_instance.set_page(context.page)
@@ -85,22 +78,37 @@ async def after_all(context):
     # Close the browser at the end
     print("End of Regression Run")
     await context.browser.close()
-    # context.page.close()
 
-# def before_scenario(context, scenario):
-#     # Create a new page for each scenario
-#     context.page = context.browser.new_page()
-#     # context.test_case_data = TestCaseData()
-#
+
+# @async_run_until_complete
+# async def after_scenario(context, scenario):
+#     # Close the page after the scenario
+#     # context.page.close()
+#     await context.session.tracing.stop(path = "trace.zip")
+#     await context.page.close()
+#     await context.session.close()
+#     del context.test_data
+#     print("Ending Scenario : " + str(scenario))
+#     time.sleep(3)
+
+    # sys.stdout.flush()
+
+@fixture
+async def take_screenshot(context, scenario):
+    if scenario.status=="failed":
+        screenshot_path = os.path.join("../","SCRYPTONITE_QA","screenshots", f"{scenario.name}_failure.png")
+        await context.page.screenshot(path=screenshot_path)
 
 
 @async_run_until_complete
 async def after_scenario(context, scenario):
-    # Close the page after the scenario
-    # context.page.close()
+    # Your existing code for stopping tracing, closing the page, etc.
+    # await context.session.tracing.stop(path="trace.zip")
+    await use_fixture(take_screenshot, context, scenario)
     await context.page.close()
+    # await context.session.close()
     del context.test_data
-    print("Ending Scenario : " + str(scenario))
-    time.sleep(3)
+    print("Ending Scenario: " + str(scenario))
 
-    # sys.stdout.flush()
+    # Add a delay if needed for the screenshot to be captured before closing the browser
+    time.sleep(3)

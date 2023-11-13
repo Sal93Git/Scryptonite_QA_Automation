@@ -11,21 +11,6 @@ import subprocess
 
 from features import environment
 
-# if __name__ == '__main__':
-#     p = argparse.ArgumentParser()
-#     # --testdir command line argument added
-#     p.add_argument('--testdir', required=False, help="File path")
-#     a = p.parse_args()
-#     testdir = a.testdir
-#     print("Test Directory Path:", testdir)
-#     # complete command
-#     # c = f'behave --no-capture {testdir}'
-#     c = f'behave --no-capture --junit {testdir}'
-#     s = subprocess.run(c, shell=True, check=True)
-
-#-----------------------------------------------------------------------------------------------
-
-
 import argparse
 import subprocess
 
