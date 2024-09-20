@@ -80,19 +80,6 @@ async def after_all(context):
     await context.browser.close()
 
 
-# @async_run_until_complete
-# async def after_scenario(context, scenario):
-#     # Close the page after the scenario
-#     # context.page.close()
-#     await context.session.tracing.stop(path = "trace.zip")
-#     await context.page.close()
-#     await context.session.close()
-#     del context.test_data
-#     print("Ending Scenario : " + str(scenario))
-#     time.sleep(3)
-
-    # sys.stdout.flush()
-
 @fixture
 async def take_screenshot(context, scenario):
     if scenario.status=="failed":

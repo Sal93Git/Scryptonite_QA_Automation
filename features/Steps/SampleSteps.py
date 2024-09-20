@@ -1,11 +1,12 @@
 from behave import *
 import time
+
+import config
 from features.Actions.BasePage import BasePage
 from features.Actions.TestPage import LoginPage
 from behave.api.async_step import async_run_until_complete
 from config import *
 import asyncio
-
 
 @Given('i go to eb')
 @async_run_until_complete
@@ -50,6 +51,7 @@ async def step_impl2(context):
 @async_run_until_complete
 async def config_test(context):
     app_url1 = context.env_properties.get('app_url')
+    # app_url1 = config.get_app_url(context.config.userdata.get("env_file", os.environ.get("DEFAULT_ENV_FILE")))
     # Use app_url in your step implementation
     await context.page_objects['LoginPage'].navigate(app_url1)
 
