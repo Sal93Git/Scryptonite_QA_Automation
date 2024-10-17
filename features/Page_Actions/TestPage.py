@@ -1,6 +1,6 @@
 from playwright.async_api import Page, async_playwright
 import asyncio
-from features.Actions.BasePage import BasePage
+from features.Page_Actions.BasePage import BasePage
 from features.Page_Objects import samplePageObjects
 from features.Page_Objects.samplePageObjects import SampleElements
 import time
