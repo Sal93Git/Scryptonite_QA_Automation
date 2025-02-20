@@ -4,6 +4,7 @@ import subprocess
 from features import environment
 import argparse
 import subprocess
+import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -21,12 +22,21 @@ if __name__ == '__main__':
 
     # Prepare the Behave command
     c = f'behave --no-capture --junit --junit-directory=reports --define env_file={env_file} {testdir}'
-    subprocess.run(c, shell=True, check=True)
+    # subprocess.run(c, shell=True, check=True)
+
+    try:
+        # Run the behave command
+        result = subprocess.run(c, shell=True, check=True)
+        return_code = result.returncode
+        print(f"Command executed successfully with return code: {return_code}.")
+    except subprocess.CalledProcessError as e:
+        print(f"Command '{e.cmd}' returned non-zero exit status {e.returncode}.")
+        sys.exit(e.returncode)
 
 
+
+# Examples how to run tests:
 # python runner.py --testdir features/feature_scenarios/Sample_feature --env-file production.properties
-#
-#
 # python runner.py --testdir features/feature_scenarios/Sample_feature --env-file development.properties
 
 
