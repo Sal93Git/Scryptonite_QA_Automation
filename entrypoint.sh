@@ -3,7 +3,7 @@
 # Activate virtual environment
 source /opt/venv/bin/activate
 
-export TZ = Australia/Sydney
+export TZ=Australia/Sydney
 
 fail_count=0
 TEST_DIR_TO_RUN="${TEST_DIR_TO_RUN}"
@@ -32,10 +32,11 @@ cp -r /usr/src/SCRYPTONITE_QA/reports /usr/src/SCRYPTONITE_QA/artifacts
 cd /usr/src/SCRYPTONITE_QA/artifacts
 ls
 
+sleep infinity
+
 if [ $fail_count -ne 0 ]; then
     echo "$fail_count Environment/s had failures"
     exit 1
 else
     echo "All tests succeeded"
 fi
-

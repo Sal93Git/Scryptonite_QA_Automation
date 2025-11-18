@@ -37,7 +37,7 @@ async def before_all(context):
 
     # Start a new Chrome browser and add it to context
     p = await async_playwright().start()
-    context.browser = await p.chromium.launch(headless=False, slow_mo=1000, channel="chrome", args=['--incognito'])
+    context.browser = await p.chromium.launch(headless=True, slow_mo=1000, channel="chrome", args=['--incognito'])
     context.browserContext = await context.browser.new_context(ignore_https_errors=True)
     print("Browser Started!")
     context.test_data = TestCaseData()
@@ -101,7 +101,7 @@ async def after_scenario(context, scenario):
     await use_fixture(log_to_newRelic, context, scenario)
     await context.page.close()
     # await context.session.close()
-    del context.test_data
+    # del context.test_data
     print("Ending Scenario: " + str(scenario))
     # Add a delay if needed for the screenshot to be captured before closing the browser
     time.sleep(3)

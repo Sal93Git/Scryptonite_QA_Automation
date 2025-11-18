@@ -2,7 +2,7 @@ from behave import Given, When, Then
 from playwright._impl._playwright import Playwright
 from playwright.sync_api import sync_playwright
 
-from features.Actions._incrementor import incrementor
+from features.Page_Actions._incrementor import incrementor
 
 
 @Given("a new incrementor of size {stride}")

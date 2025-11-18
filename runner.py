@@ -36,7 +36,5 @@ if __name__ == '__main__':
 
 
 # Examples how to run tests:
-# python runner.py --testdir features/feature_scenarios/Sample_feature --env-file production.properties
-# python runner.py --testdir features/feature_scenarios/Sample_feature --env-file development.properties
-
-
+# python runner.py --testdir features/feature_scenarios/Sample_feature --env-file production
+# python runner.py --testdir features/feature_scenarios/Sample_feature --env-file development

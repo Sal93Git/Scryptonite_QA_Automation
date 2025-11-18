@@ -1,11 +1,11 @@
 from behave import *
 import time
 
-import config
-from features.Actions.BasePage import BasePage
-from features.Actions.TestPage import LoginPage
+# import config
+from features.Page_Actions.BasePage import BasePage
+from features.Page_Actions.TestPage import LoginPage
 from behave.api.async_step import async_run_until_complete
-from config import *
+# from config import *
 import asyncio
 
 @Given('i go to eb')
