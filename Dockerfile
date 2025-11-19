@@ -10,10 +10,8 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
         python3 python3-pip python3-venv \
-        ca-certificates fonts-noto-color-emoji \
-        curl vim chromium-browser \
-        wget unzip && \
-    apt-get clean && \
+        ca-certificates \
+    && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy project code and resources to the container
