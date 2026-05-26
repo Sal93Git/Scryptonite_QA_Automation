@@ -1,6 +1,7 @@
-FROM ubuntu:latest
+FROM ubuntu:24.04
 
-USER root
+
+RUN groupadd -r lex && useradd -r -g lex -m -d /home/lex lex
 
 # Set working directory
 WORKDIR /usr/src/SCRYPTONITE_QA
@@ -27,8 +28,11 @@ RUN python3 -m venv /opt/venv && \
 RUN /opt/venv/bin/python -m playwright install chrome
 
 # Set permissions
-RUN chmod -R 755 /usr/src/SCRYPTONITE_QA && \
+RUN chown -R lex:lex /usr/src/SCRYPTONITE_QA /opt/venv && \
+    chmod -R 755 /usr/src/SCRYPTONITE_QA && \
     chmod +x entrypoint.sh
+
+USER lex
 
 # Use virtual environment by default
 ENV PATH="/opt/venv/bin:$PATH"

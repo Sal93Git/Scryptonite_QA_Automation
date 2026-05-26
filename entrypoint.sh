@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Activate virtual environment
-source /opt/venv/bin/activate
+# source /opt/venv/bin/activate
 
 export TZ=Australia/Sydney
 
@@ -32,7 +32,11 @@ cp -r /usr/src/SCRYPTONITE_QA/reports /usr/src/SCRYPTONITE_QA/artifacts
 cd /usr/src/SCRYPTONITE_QA/artifacts
 ls
 
-sleep infinity
+# For testing set to true to keep container alive
+if [ "$KEEP_ALIVE" = "true" ]; then
+    echo "KEEP_ALIVE is set to true; run sleep infinity to keep container running after tests completed"
+    sleep infinity
+fi
 
 if [ $fail_count -ne 0 ]; then
     echo "$fail_count Environment/s had failures"
