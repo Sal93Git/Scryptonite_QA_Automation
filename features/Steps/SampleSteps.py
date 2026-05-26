@@ -55,4 +55,24 @@ async def config_test(context):
     # Use app_url in your step implementation
     await context.page_objects['LoginPage'].navigate(app_url1)
 
+@Then("web test")
+def webrun(playwright: Playwright) -> None:
+    with sync_playwright() as playwright:
+     browser = playwright.chromium.launch(headless=False)
+     context = browser.new_context()
+    # Open new page
+     page = context.new_page()
+    # Go to https://www.wikipedia.org/
+     page.goto("https://www.wikipedia.org/")
+    # Click input[name="search"]
+     page.locator("input[name=\"search\"]").click()
+    # Fill input[name="search"]
+     page.locator("input[name=\"search\"]").fill("lancia")
+    # Click text=LanciaAutomobile brand manufacturing subsidiary of Stellantis >> em
+     page.locator("text=LanciaAutomobile brand manufacturing subsidiary of Stellantis >> em").click()
+     page.wait_for_url("https://en.wikipedia.org/wiki/Lancia")
+    # ---------------------
+     context.close()
+     browser.close()
+     print('end of web test')
 
